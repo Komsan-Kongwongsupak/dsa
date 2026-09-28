@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dsa"
+version = "0.1.0"
+description = "From-scratch data structures, algorithms, and ML building blocks"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []                    # keep the core dependency-free
+
+[project.optional-dependencies]
+numeric = ["numpy>=1.26"]
+dev = [
+    "pytest",
+    "pytest-benchmark",
+    "hypothesis",
+    "mypy",
+    "ruff",
+    "networkx",                      # oracles for testing
+    "scipy",
+    "scikit-learn",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dsa"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+line-length = 88
