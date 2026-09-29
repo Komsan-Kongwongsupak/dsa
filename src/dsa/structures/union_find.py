@@ -5,6 +5,7 @@ from typing import Generic, TypeVar
 
 K = TypeVar("K", bound=Hashable)
 
+
 class UnionFind(Generic[K]):
     """Disjoint-set with path compression and union by rank.
 
@@ -28,7 +29,7 @@ class UnionFind(Generic[K]):
         root = x
         while self._parent[root] != root:
             root = self._parent[root]
-        while self._parent[x] != root:          # path compression
+        while self._parent[x] != root:  # path compression
             self._parent[x], x = root, self._parent[x]
         return root
 
@@ -48,7 +49,7 @@ class UnionFind(Generic[K]):
         return self.find(a) == self.find(b)
 
     def __len__(self) -> int:
-        return self._count                       # number of components
+        return self._count  # number of components
 
     def __contains__(self, x: object) -> bool:
         return x in self._parent
