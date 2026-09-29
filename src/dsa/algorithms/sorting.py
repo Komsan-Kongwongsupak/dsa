@@ -104,3 +104,47 @@ def merge(
         else:
             a[m] = right[j]
             j += 1
+
+
+def merge_sort_inplace(
+    a: MutableSequence[T],
+    p: int = 0,
+    r: int | None = None,
+    *,
+    key: Callable[[T], Any] | None = None,
+    reverse: bool = False,
+) -> None:
+    """Sort ``a[p..r]`` (inclusive) in place using merge sort.
+
+    ``r`` defaults to ``len(a) - 1`` so it can be called as
+    ``merge_sort_inplace(a)`` on the whole sequence.
+
+    Stable: ties keep their original relative order (inherited from
+    ``merge``).
+
+    Complexity:
+        Time:  Θ(n log n) always.
+        Space: Θ(n) auxiliary (from ``merge``'s temporary copies).
+    """
+    if r is None:
+        r = len(a) - 1
+    if p < r:
+        q = (p + r) // 2
+        merge_sort_inplace(a, p, q, key=key, reverse=reverse)
+        merge_sort_inplace(a, q + 1, r, key=key, reverse=reverse)
+        merge(a, p, q, r, key=key, reverse=reverse)
+
+
+def merge_sort(
+    iterable: Iterable[T],
+    *,
+    key: Callable[[T], Any] | None = None,
+    reverse: bool = False,
+) -> list[T]:
+    """Return a new sorted list from ``iterable`` (like ``sorted``).
+
+    Complexity: Θ(n log n) time, Θ(n) space.
+    """
+    result = list(iterable)
+    merge_sort_inplace(result, key=key, reverse=reverse)
+    return result

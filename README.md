@@ -45,8 +45,8 @@ from dsa import UnionFind, insertion_sort
 uf = UnionFind(range(5))
 uf.union(0, 1)
 uf.union(1, 2)
-uf.connected(0, 2)   # True
-len(uf)              # 3 (number of components)
+uf.connected(0, 2)  # True
+len(uf)  # 3 (number of components)
 
 insertion_sort([5, 2, 4, 6, 1, 3])
 # [1, 2, 3, 4, 5, 6]
